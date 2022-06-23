@@ -1,6 +1,25 @@
 {
   "name": "ngx-basic-templater",
-  "version": "0.0.1",
+  "version": "0.0.4",
+  "description": "This is a basic angular library to create angular form and table view with bootstrap and datatable.",
+  "keywords": ["code","angular","form","table","datatable","template"],
+  "author": {
+    "name": "Md. Mahmud Ul Islam",
+    "email": "i.mahmud.islam@gmail.com",
+    "url":"https://github.com/i-mahmud"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/i-mahmud/ngx-templater"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.schematics.json",
+    "postbuild": "copyfiles schematics/collection.json schematics/*/schema.json schematics/*/files/** ../../dist/ngx-basic-templater/ "
+  },
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "true"
+  },
   "peerDependencies": {
     "@angular/common": "^12.0.5",
     "@angular/core": "^12.0.5"

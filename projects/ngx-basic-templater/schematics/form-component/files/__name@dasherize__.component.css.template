@@ -1,0 +1,294 @@
+.form-control {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 60px;
+  border-color: transparent;
+  transition: 0.2s ease-in;
+  width: 180px;
+  height: 30px;
+}
+
+
+.form-control {
+  color: #212529;
+  min-height: 38px;
+  display: initial;
+}
+
+.form-control-sm {
+  min-height: 20px;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  opacity: 0.7;
+}
+
+
+
+/*============================================================== 
+Form Material page
+ ============================================================== */
+/*Material inputs*/
+.form-material .form-group {
+  overflow: hidden;
+}
+
+.form-material .form-control {
+  background-color: rgba(0, 0, 0, 0);
+  background-position: center bottom, center calc(100% - 1px);
+  background-repeat: no-repeat;
+  background-size: 0 2px, 100% 1px;
+  padding: 0;
+  transition: background 0s ease-out 0s;
+}
+
+.form-material .form-control,
+.form-material .form-control.focus,
+.form-material .form-control:focus {
+  background-image: linear-gradient(#fb9678, #fb9678), linear-gradient(#e9ecef, #e9ecef);
+  border: 0 none;
+  border-radius: 0;
+  box-shadow: none;
+  float: none;
+}
+
+.form-material .form-control.focus,
+.form-material .form-control:focus {
+  background-size: 100% 2px, 100% 1px;
+  outline: 0 none;
+  transition-duration: 0.3s;
+}
+
+.form-control-line .form-group {
+  overflow: hidden;
+}
+
+.form-control-line .form-control {
+  border: 0px;
+  border-radius: 0px;
+  padding-left: 0px;
+  border-bottom: 1px solid #e9ecef;
+}
+.form-control-line .form-control:focus {
+  border-bottom: 1px solid #fb9678;
+}
+
+/*******************
+Form validation error 
+******************/
+.error .help-block {
+  color: #e46a76;
+}
+
+/*******************
+File Upload 
+******************/
+.fileupload {
+  overflow: hidden;
+  position: relative;
+}
+.fileupload input.upload {
+  cursor: pointer;
+  filter: alpha(opacity=0);
+  font-size: 20px;
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.scale-up {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  display: inline-block;
+  transform-origin: right 0px;
+}
+
+.scale-up-left {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  display: inline-block;
+  transform-origin: left 0px;
+}
+
+.show > .scale-up {
+  transform: scale(1);
+  transform-origin: right 0px;
+}
+
+.show > .scale-up-left {
+  transform: scale(1);
+  transform-origin: left 0px;
+}
+
+/*Radio button*/
+@keyframes ripple {
+  0% {
+    box-shadow: 0px 0px 0px 1px transparent;
+  }
+  50% {
+    box-shadow: 0px 0px 0px 15px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    box-shadow: 0px 0px 0px 15px transparent;
+  }
+}
+
+/*Floating label*/
+/*Bootstrap Select*/
+.bootstrap-select.btn-group .dropdown-menu {
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
+}
+
+/*Form Validation*/
+.help-block ul {
+  padding: 0px;
+  margin: 0px;
+}
+.help-block ul li {
+  list-style: none;
+}
+
+.error .form-control {
+  border-color: #e46a76;
+}
+
+.validate .form-control {
+  border-color: #00c292;
+}
+
+/*Form Input States*/
+.form-control-success,
+.form-control-warning,
+.form-control-danger {
+  padding-right: 2.25rem;
+  background-repeat: no-repeat;
+  background-position: center right 0.5625rem;
+  -webkit-background-size: 1.125rem 1.125rem;
+  background-size: 1.125rem 1.125rem;
+}
+
+.has-success .form-control-feedback,
+.has-success .form-control-label,
+.has-success .col-form-label,
+.has-success .form-check-label,
+.has-success .custom-control {
+  color: #00c292;
+}
+
+.has-success .form-control {
+  border-color: #00c292;
+}
+
+.has-success .input-group-addon {
+  color: #00c292;
+  border-color: #00c292;
+}
+
+.has-success .form-control-success {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%235cb85c' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3E%3C/svg%3E");
+}
+
+.has-warning .form-control-feedback,
+.has-warning .form-control-label,
+.has-warning .col-form-label,
+.has-warning .form-check-label,
+.has-warning .custom-control {
+  color: #fec107;
+}
+
+.has-warning .form-control {
+  border-color: #fec107;
+}
+
+.has-warning .input-group-addon {
+  color: #fec107;
+  border-color: #fec107;
+}
+
+.has-warning .form-control-warning {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23f0ad4e' d='M4.4 5.324h-.8v-2.46h.8zm0 1.42h-.8V5.89h.8zM3.76.63L.04 7.075c-.115.2.016.425.26.426h7.397c.242 0 .372-.226.258-.426C6.726 4.924 5.47 2.79 4.253.63c-.113-.174-.39-.174-.494 0z'/%3E%3C/svg%3E");
+}
+
+.has-danger .form-control-feedback,
+.has-danger .form-control-label,
+.has-danger .col-form-label,
+.has-danger .form-check-label,
+.has-danger .custom-control {
+  color: #e46a76;
+}
+
+.has-danger .form-control {
+  border-color: #e46a76;
+}
+
+.has-danger .input-group-addon {
+  color: #e46a76;
+  border-color: #e46a76;
+}
+
+.has-danger .form-control-danger {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23d9534f' viewBox='-2 -2 7 7'%3E%3Cpath stroke='%23d9534f' d='M0 0l3 3m0-3L0 3'/%3E%3Ccircle r='.5'/%3E%3Ccircle cx='3' r='.5'/%3E%3Ccircle cy='3' r='.5'/%3E%3Ccircle cx='3' cy='3' r='.5'/%3E%3C/svg%3E");
+}
+
+
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+  width: 100%;
+}
+
+.bootstrap-select .dropdown-menu li a {
+  display: block;
+  padding: 7px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #212529;
+  white-space: nowrap;
+}
+.bootstrap-select .dropdown-menu li a:hover,
+.bootstrap-select .dropdown-menu li a:focus {
+  color: #fb9678;
+  background: #f8f9fa;
+}
+
+.bootstrap-select .show > .dropdown-menu {
+  display: block;
+}
+
+.bootstrap-touchspin .input-group-btn-vertical > .btn {
+  padding: 9px 10px;
+}
+
+.select2-container--default .select2-selection--single {
+  border-color: #e9ecef;
+  height: 38px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 38px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 33px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  float: right;
+  color: #fff;
+  margin-right: 0px;
+  margin-left: 4px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background: #fb9678;
+  color: #fff;
+  border-color: #fb9678;
+}
+
+.input-form .btn {
+  padding: 8px 12px;
+}

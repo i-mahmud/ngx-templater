@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "form-component",
+    "title":"Basic Form Library Component",
+    "type":"object",
+    "properties": {
+        "name":{
+            "description": "The name of the form component",
+            "type":"string"
+        },
+        "path":{
+            "description": "Where to create the component",
+            "type":"string",
+            "format":"path",
+            "x-prompt":"Where to create the component?",
+            "default":"src/app"
+        }
+    },
+    "required": []
+}

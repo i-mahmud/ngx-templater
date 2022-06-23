@@ -1,0 +1,11 @@
+{
+    "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+    "schematics": {
+        "basic-form-component":{
+            "description": "Create basic form view",
+            "factory": "./form-component/index#formComponentGenerator",
+            "schema": "./form-component/schema.json",
+            "aliases": ["fc"]
+        }
+    }
+}
