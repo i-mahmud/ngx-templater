@@ -4,21 +4,33 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Code scaffolding
 
-Run `ng generate component component-name --project ngx-basic-templater` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-basic-templater`.
-> Note: Don't forget to add `--project ngx-basic-templater` or else it will be added to the default project in your `angular.json` file. 
+Run `ng generate ngx-basic-templater:basic-form-component --name YOUR_COMPONENT_NAME` to generate a new form component. 
+> Note: Don't forget to run `npm i @ng-select/ng-select bootstrap jquery ngx-image-compress` before running the generate command. After installing add the following lines in your `angular.json` file. 
+ ` "styles": [` 
+        `"node_modules/bootstrap/dist/css/bootstrap.css",`
+        `....`
+    `],`
 
+ ` "scripts": [` 
+        `"node_modules/jquery/dist/jquery.js",`
+        `"node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",`
+        `....`
+    `],`
+
+
+After adding all the dependencies you will also need to update your module where you have declared the generated component
+
+> Note: Add this to `YOUR_MODULE.module.ts` 
+`imports: [`
+    `....`
+    `FormsModule,`
+    `ReactiveFormsModule,`
+    `NgSelectModule`
+  `],`
+  `providers:[`
+    `.....`
+    `NgxImageCompressService],`
 ## Build
 
-Run `ng build ngx-basic-templater` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng serve` to run the project.
 
-## Publishing
-
-After building your library with `ng build ngx-basic-templater`, go to the dist folder `cd dist/ngx-basic-templater` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test ngx-basic-templater` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

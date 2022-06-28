@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute} from '@angular/router';
+import { NgxImageCompressService } from 'ngx-image-compress';
 @Component({
   selector: '<%= dasherize(name) %>',
   templateUrl: './<%= dasherize(name) %>.component.html',
@@ -7,9 +9,206 @@ import { Component, OnInit } from '@angular/core';
 })
 export class <%= classify(name) %>Component implements OnInit {
 
-  constructor() { }
+  public entryForm!: FormGroup;
+  isSubmitted:boolean = false;
+
+  selectItems = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
+  singleImage: any;
+  multipleImage: any[] = [];
+
+
+  checkBoxOptions = ["CheckBox 1", "CheckBox 2", "CheckBox 3"];
+  constructor(
+    private fb: FormBuilder,
+    private imageCompress: NgxImageCompressService,
+    private route:ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
+    this.entryForm = this.fb.group({
+      text: [null, [Validators.required]],
+      email: [null, [Validators.email]],
+      password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(30), Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{7,29}')]],
+      select: [null, [Validators.required]],
+      multiSelect: [null, [Validators.required]],
+      singleImage: [null, [Validators.required]],
+      multipleImage:[null, [Validators.required]],
+      dateTime: [null, [Validators.required]],
+      date: [null, [Validators.required]],
+      time: [null, [Validators.required]],
+      radio: [null, [Validators.required]],
+      bool1: [false, [Validators.required]],
+      bool2: [true, [Validators.required]],
+      bool3: [false, [Validators.required]],
+      checkBoxMulti:[null, [Validators.required]],
+    
+    });
+    this.route.paramMap.subscribe((params: any) => {
+      if (params["params"]["id"]) {
+        this.loadData(params["params"]["id"]);
+      }else{
+        // TODO: DO what needs to be done for new entry
+      }
+    });
   }
+
+  loadData(id:string){
+    // Implement the load data logic
+    this.setData(null);
+  }
+
+  setData(data:any){
+    this.entryForm.controls.text.setValue(data.text);
+    this.entryForm.controls.email.setValue(data.email);
+    this.entryForm.controls.password.setValue(data.password);
+    this.entryForm.controls.select.setValue(data.select);
+    this.entryForm.controls.multiSelect.setValue(data.multiSelect);
+    this.entryForm.controls.singleImage.setValue(data.singleImage);
+    this.singleImage = data.singleImage;
+    this.entryForm.controls.multipleImage.setValue(data.multipleImage);
+    this.multipleImage = data.multipleImage;
+    this.entryForm.controls.dateTime.setValue(data.dateTime);
+    this.entryForm.controls.date.setValue(data.date);
+    this.entryForm.controls.time.setValue(data.time);
+    this.entryForm.controls.radio.setValue(data.radio);
+    this.entryForm.controls.bool1.setValue(data.bool1);
+    this.entryForm.controls.bool2.setValue(data.bool2);
+    this.entryForm.controls.bool3.setValue(data.bool3);
+    this.entryForm.controls.checkBoxMulti.setValue(data.checkBoxMulti);
+    
+  }
+
+  radioClick(val:any){
+    this.entryForm.controls.radio.setValue(val);
+  }
+
+  selectSingleImage() {
+    try {
+      this.imageCompress
+        .uploadFile()
+        .then(
+          async (singleFile: {
+            image: string;
+            fileName: string;
+            orientation: number;
+          }) => {
+            if (this.imageCompress.byteCount(singleFile.image) > 100000) {
+              // more than 100kb
+              await this.imageCompress
+                .compressFile(singleFile.image, singleFile.orientation, 50, 70)
+                .then((result) => {
+                  this.singleImage = result;
+                  this.entryForm.controls['singleImage'].setValue(
+                    singleFile.fileName
+                  );
+                });
+            } else {
+              this.singleImage = singleFile.image;
+              this.entryForm.controls['singleImage'].setValue(
+                singleFile.fileName
+              );
+            }
+          }
+        );
+    } catch (e) {
+      window.alert(JSON.stringify(e));
+    }
+  }
+
+  selectMultipleImage() {
+    try {
+      this.imageCompress
+        .uploadMultipleFiles()
+        .then(
+          async (
+            arrayOfFiles: {
+              image: string;
+              fileName: string;
+              orientation: number;
+            }[]
+          ) => {
+            for (let i = 0; i < arrayOfFiles.length; i++) {
+              let imageFile = arrayOfFiles[i];
+              if (this.imageCompress.byteCount(imageFile.image) > 100000) {
+                // more than 100kb
+                await this.imageCompress
+                  .compressFile(imageFile.image, imageFile.orientation, 50, 70)
+                  .then((result) => {
+                    this.multipleImage.push(result);
+                  });
+              } else {
+                await this.imageCompress
+                  .compressFile(imageFile.image, imageFile.orientation, 50, 70)
+                  .then((result) => {
+                    this.multipleImage.push(result);
+                  });
+              }
+            }
+            this.entryForm.controls['multipleImage'].setValue(
+              this.multipleImage
+            );
+          }
+        );
+    } catch (e) {
+      window.alert(JSON.stringify(e));
+    }
+  }
+
+  deleteImageFromMultipleImage(list:any[],index:number){
+    list.splice(index,1);
+  }
+
+  checkboxMultiSelectClick(val:string){
+    if(this.entryForm.value.checkBoxMulti){
+      let list = this.entryForm.value.checkBoxMulti as any[];
+      let index = list.indexOf(val);
+      if(index>=0){
+        list.splice(index,1);
+        this.entryForm.controls.checkBoxMulti.setValue(list);
+      }else{
+        list.push(val);
+        this.entryForm.controls.checkBoxMulti.setValue(list);
+      }
+    }else{
+      let list = [val];
+      this.entryForm.controls.checkBoxMulti.setValue(list);
+    }
+  }
+
+
+
+  submit(){
+    try {
+      this.isSubmitted = true;
+
+      if(this.entryForm.invalid){
+        return;
+      }
+
+      let data :any = {};
+      data.text = this.entryForm.value.text;
+      data.email = this.entryForm.value.email;
+      data.password= this.entryForm.value.password;
+      data.select= this.entryForm.value.select;
+      data.multiSelect= this.entryForm.value.multiSelect;
+      data.singleImage= this.singleImage;
+      data.multipleImage= this.entryForm.value.multipleImage;
+      data.dateTime= this.entryForm.value.dateTime;
+      data.date= new Date(Date.parse(this.entryForm.value.date)).getTime();
+      data.time= this.entryForm.value.time;
+      data.radio= this.entryForm.value.radio;
+      data.bool1= this.entryForm.value.bool1;
+      data.bool2= this.entryForm.value.bool2;
+      data.bool3= this.entryForm.value.bool3;
+      data.checkBoxMulti= this.entryForm.value.checkBoxMulti;
+
+      console.log(data);
+
+    } catch (error) {
+      window.alert(JSON.stringify(error));
+    }
+  }
+
+
 
 }

@@ -1,26 +1,345 @@
 <div class="row">
-  <div class="col-12">
-      <div class="card">
+  <div class="col-lg-12">
+    <div class="card">
+      <form [formGroup]="entryForm" autocomplete="off" (submit)="submit()">
+        <div class="form-body">
           <div class="card-body">
-              <h4 class="card-title">General Form</h4>
-              <h6 class="card-subtitle"> All with bootstrap element classies </h6>
-              <form class="mt-4">
-                  <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <div class="row">
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-danger': isSubmitted && entryForm.controls.password.errors?.required
+                  }">
+                  <label class="control-label">Text</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    class="form-control"
+                    placeholder="John doe"
+                    [ngClass]="{
+                      'form-control-danger': isSubmitted && entryForm.controls.text.errors?.required
+                    }"
+                    formControlName="text" />
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.text.errors?.required"> Please provide value </span>
+                  </small>
+                </div>
+              </div>
+
+
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-danger': isSubmitted && entryForm.controls.email.errors?.email
+                  }">
+                  <label class="control-label">Email</label>
+                  <input
+                    type="text"
+                    id="email"
+                    class="form-control"
+                    placeholder="abc@example.com"
+                    [ngClass]="{
+                      'form-control-danger': isSubmitted && entryForm.controls.email.errors?.email
+                    }"
+                    formControlName="email" />
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.email.errors?.email"> Please provide a valid email </span>
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-danger':
+                      isSubmitted &&
+                      (entryForm.controls.password.errors?.required ||
+                        entryForm.controls.password.errors?.minLength ||
+                        entryForm.controls.password.errors?.maxLength ||
+                        entryForm.controls.password.errors?.pattern)
+                  }">
+                  <label class="control-label">Password</label>
+                  <input
+                    type="password"
+                    id="firstName"
+                    class="form-control"
+                    placeholder="Password"
+                    autocomplete="new-password"
+                    formControlName="password"
+                    [ngClass]="{
+                      'form-control-danger':
+                        isSubmitted &&
+                        (entryForm.controls.password.errors?.required ||
+                          entryForm.controls.password.errors?.minLength ||
+                          entryForm.controls.password.errors?.maxLength ||
+                          entryForm.controls.password.errors?.pattern)
+                    }" />
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.password.errors?.required"> Please provide Password </span>
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.password.errors?.minLength"> Password must be at least 8 digit</span>
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.password.errors?.maxLength"> Password can be max 30 digit</span>
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.password.errors?.pattern"
+                      >Password should contain one number (0-9),one upper case (A-Z), one lower case (a-z) character and one special character (@$!%*)
+                    </span>
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-danger': isSubmitted && entryForm.controls.select.errors?.required
+                  }">
+                  <label class="control-label">Gender</label>
+                  <select
+                    class="form-control custom-select"
+                    formControlName="select"
+                    [ngClass]="{
+                      'form-control-danger': isSubmitted && entryForm.controls.select.errors?.required
+                    }">
+                    <option [value]="null" selected>Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.select.errors?.required"> Please select a value </span>
+                  </small>
+                </div>
+              </div>
+              <!--/span-->
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-danger': isSubmitted && entryForm.controls.date.errors?.required
+                  }">
+                  <label class="control-label">Date</label>
+                  <input
+                    class="form-control"
+                    type="date"
+                    value="2011-08-19"
+                    formControlName="date"
+                    [ngClass]="{
+                      'form-control-danger': isSubmitted && entryForm.controls.date.errors?.required
+                    }"
+                    id="example-date-input" />
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.date.errors?.required"> Please select a value </span>
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-danger': isSubmitted && entryForm.controls.time.errors?.required
+                  }">
+                  <label class="control-label">Time</label>
+                  <input
+                    class="form-control"
+                    type="time"
+                    value="13:45:00"
+                    formControlName="time"
+                    [ngClass]="{
+                      'form-control-danger': isSubmitted && entryForm.controls.time.errors?.required
+                    }"
+                    id="example-time-input" />
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.time.errors?.required"> Please select a value </span>
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-danger': isSubmitted && entryForm.controls.dateTime.errors?.required
+                  }">
+                  <label class="control-label">Date & Time</label>
+                  <input
+                    class="form-control"
+                    type="datetime-local"
+                    value="2011-08-19T13:45:00"
+                    id="example-datetime-local-input"
+                    formControlName="dateTime"
+                    [ngClass]="{
+                      'form-control-danger': isSubmitted && entryForm.controls.dateTime.errors?.required
+                    }" />
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.dateTime.errors?.required"> Please select a value </span>
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="control-label">Switches</label>
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="bool1" />
+                    <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
                   </div>
-                  <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch2" formControlName="bool2" />
+                    <label class="custom-control-label" for="customSwitch2">Toggle this switch element</label>
                   </div>
-                  <div class="custom-control custom-checkbox mr-sm-2 mb-3">
-                      <input type="checkbox" class="custom-control-input" id="checkbox0" value="check">
-                      <label class="custom-control-label" for="checkbox0">Check Me Out !</label>
+
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch3" formControlName="bool3" />
+                    <label class="custom-control-label" for="customSwitch3">Toggle this switch element</label>
                   </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-danger': isSubmitted && entryForm.controls.checkBoxMulti.errors?.required
+                  }">
+                  <label class="control-label">Check Box</label>
+                  <div *ngFor="let item of checkBoxOptions" class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="{{ item }}" (click)="checkboxMultiSelectClick(item)" [checked]="(entryForm.value.checkBoxMulti && entryForm.value.checkBoxMulti.indexOf(item)>=0)" />
+                    <label class="custom-control-label" for="{{ item }}">{{ item }}</label>
+                  </div>
+
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.checkBoxMulti.errors?.required"> Please select a value </span>
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  class="form-group"
+                  [ngClass]="{
+                    'has-danger': isSubmitted && entryForm.controls.radio.errors?.required
+                  }">
+                  <label class="control-label">Membership</label>
+                  <div class="custom-control custom-radio">
+                    <input
+                      type="radio"
+                      id="customRadio11"
+                      name="customRadio"
+                      class="custom-control-input"
+                      (change)="radioClick('free')"
+                      [ngClass]="{
+                        'form-control-danger': isSubmitted && entryForm.controls.radio.errors?.required
+                      }" />
+                    <label class="custom-control-label" for="customRadio11">Free</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input
+                      type="radio"
+                      id="customRadio22"
+                      name="customRadio"
+                      class="custom-control-input"
+                      (change)="radioClick('paid')"
+                      [ngClass]="{
+                        'form-control-danger': isSubmitted && entryForm.controls.radio.errors?.required
+                      }" />
+                    <label class="custom-control-label" for="customRadio22">Paid</label>
+                  </div>
+
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.radio.errors?.required"> Please select a value </span>
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-danger': isSubmitted && entryForm.controls.multiSelect.errors?.required
+                  }">
+                  <label class="control-label">Select Search</label>
+                  <ng-select
+                    class="custom"
+                    [items]="selectItems"
+                    [addTag]="false"
+                    [multiple]="true"
+                    [hideSelected]="false"
+                    [closeOnSelect]="false"
+                    [placeholder]="'Select item'"
+                    [ngClass]="{
+                      'input-error': isSubmitted && entryForm.controls.multiSelect.errors?.required
+                    }"
+                    formControlName="multiSelect">
+                  </ng-select>
+
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.multiSelect.errors?.required"> Please select a value </span>
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div
+                  class="custom-file mb-3"
+                  [ngClass]="{
+                    'has-danger': isSubmitted && entryForm.controls.singleImage.errors?.required
+                  }">
+                  <img
+                    *ngIf="!singleImage"
+                    src="data:image/png;base64,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"
+                    alt=""
+                    style="height: 100px; width: 100px; object-fit: contain" />
+                  <img *ngIf="singleImage" [src]="singleImage" alt="" style="height: 100px; width: 100px; object-fit: contain" />
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.singleImage.errors?.required"> Please select an image </span>
+                  </small>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Choose File" formControlName="singleImage" readonly (click)="selectSingleImage()" />
+                    <div class="input-group-append" style="cursor: pointer" (click)="selectSingleImage()">
+                      <span class="input-group-text" id="basic-addon2">Browse</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="col-md-6"
+                [ngClass]="{
+                  'has-danger': isSubmitted && entryForm.controls.multipleImage.errors?.required
+                }">
+                <div class="wrapper">
+                  <img
+                    *ngIf="!multipleImage || multipleImage.length == 0"
+                    src="data:image/png;base64,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"
+                    alt=""
+                    style="height: 100px; width: 100px; object-fit: contain" />
+                  <div *ngFor="let img of multipleImage; let i = index" class="slide" style="position: relative">
+                    <img [src]="img" alt="Image" height="100" width="100" style="margin: 2px; object-fit: contain" />
+                    <button
+                      class="btn btn-danger btn-xsm"
+                      (click)="deleteImageFromMultipleImage(multipleImage, i)"
+                      style="position: absolute; top: 5px; right: 5px; padding: 3px; line-height: 5px">
+                      x
+                    </button>
+                  </div>
+                  <small class="form-control-feedback">
+                    <span class="text-danger" *ngIf="isSubmitted && entryForm.controls.multipleImage.errors?.required"> Please select an image </span>
+                  </small>
+                </div>
+
+                <div class="custom-file mb-3">
+                  <input formControlName="multipleImage" class="custom-file-input" (click)="selectMultipleImage()" />
+                  <label class="custom-file-label form-control" for="customFile">Choose files</label>
+                </div>
+              </div>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary me-1 mb-1">Save</button>
           </div>
-      </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
